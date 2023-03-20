@@ -1,0 +1,58 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>海洋观测信息系统</title>
+    <!-- 链接本网页对应的CSS样式文件 -->
+    <link rel="stylesheet" href="{% static 'css/login.css' %}" />
+    <!-- 灵活布局插件 -->
+    <script src="{% static 'js/flexible.js' %}"></script>
+    <!-- js框架插件，简化dom操作，响应式数据驱动 -->
+    <script src="{% static 'js/vue.js' %}"></script>
+    <!-- 屏幕适应插件 -->
+    <script src="{% static 'js/screen.js' %}"></script>
+    <!-- 数据可视化插件 -->
+    <script src="{% static 'js/echarts.min.js' %}"></script>
+
+  </head>
+<div class="container">
+      <form id="login-form" method="post" action="/login/">
+       {% csrf_token %}
+        <label>用户名</label> <input type="text" name="user" required />
+        <label>密码</label> <input type="password" name="pwd" required />
+        <input type="submit" value="登录"  {% comment %} v-on:click="login" {% endcomment %} />
+        <span>{{erro_msg}}</span>
+      <div class="switch">
+        <a href="#" onclick="showRegisterForm()">没有账号，去注册</a>
+      </div>
+      </form>
+      <form id="register-form" method="post" style="display: none" action="/login/"> 
+       {% csrf_token %}
+        <label>用户名</label> <input type="text" name="username_reg" required />
+        <label>密码</label> <input type="password" name="password_reg1" required />
+        <label>确认密码</label>
+        <input {% comment %}  {% endcomment %} type="password" name="password_reg2" required />
+        <label>邮箱</label>
+        <input type="email" name="email"  required/>
+        <input type="submit" value="注册" {% comment %} v-on:click="login" {% endcomment %} />
+        <span>{{erro_msg}}</span>
+      <div class="switch">
+        <a href="#" onclick="showLoginForm()">已有账号，去登录</a>
+      </div>
+      </form>
+
+    </div>
+    <script>
+      function showLoginForm() {
+        document.getElementById("login-form").style.display = "block";
+        document.getElementById("register-form").style.display = "none";
+      }
+      function showRegisterForm() {
+        document.getElementById("login-form").style.display = "none";
+        document.getElementById("register-form").style.display = "block";
+      }
+    </script>
+
+</html>

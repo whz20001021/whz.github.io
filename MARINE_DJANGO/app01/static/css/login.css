@@ -1,0 +1,72 @@
+body{
+  width: 100%;
+  margin: 0;
+  overflow: scroll;
+  background: url(../img/login/login.png) repeat;
+  background-size: 100%;
+}
+body::-webkit-scrollbar {
+  display: none;
+}
+.container {
+  position: relative;
+  float: right;
+  width: 80%;
+  max-width: 500px;
+  margin-top: 15%;
+  margin-right: 2%;
+
+  background-color: #fff;
+  border-radius: 20px;
+  box-shadow: 0 0 35px rgba(0, 0, 0, 0.6);
+}
+form {
+  position: relative;
+  margin-bottom: 20px;
+  margin-top: 10px;
+  padding: 40px;
+}
+label {
+  display: block;
+  font-size: 18px;
+  color: #333;
+}
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+
+  font-size: 18px;
+  border-radius: 5px;
+  border: none;
+  border-bottom: 2px solid #00bfff;
+  border-radius: 15px;
+}
+input[type="submit"] {
+  width: 100%;
+  padding: 20px 0;
+
+  background-color: #00bfff;
+  color: #fff;
+  font-size: 18px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+
+}
+.switch {
+  width: 100%;
+  margin-top: 20px;
+  text-align: center;
+  font-size: 18px;
+  color: #333;
+}
+.switch a {
+  width: 100%;
+  color: #00bfff;
+  text-decoration: none;
+  font-weight: bold;
+  font-family:Georgia, 'Times New Roman', Times, serif;
+}

@@ -1,0 +1,234 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>数字海底大数据平台</title>
+  <link rel="stylesheet" href="{% static 'css/index2.css' %}" />
+  <script src="{% static 'js/screen.js' %}/"></script>
+  <script type="text/javascript">
+    $(function () {
+      var svgRootDom = $("#sketchpad")[0];
+      adjustToFreezeWidth(svgRootDom);
+    });
+  </script>
+
+  <script type="text/javascript">
+    /*
+      2.实现表格滚动(每次滚动一行)
+    */
+    
+    window.onload = function () {
+      var scrollTab = document.getElementsByClassName('tab-scroll')[0];
+      var tbody = scrollTab.getElementsByTagName('tbody')[0];//tbody
+
+      var speed = scrollTab.getElementsByTagName('td')[0].offsetHeight;
+      var count = 0;//要追加到表格底部的行索引 	
+      setInterval(scrollTop, 2000);//每隔1.5秒滚动一次
+
+      //实现表格向上滚动
+      function scrollTop() {
+        var t = scrollTab.offsetTop;//top值
+        scrollTab.style.top = t - speed + 'px';//滚动
+
+        var trs = tbody.getElementsByTagName('tr');//每次都重新取出所有内容行				
+        var newTr = trs[count].cloneNode(true);//复制行，得到新的行对象
+        //将滚动的行追加到表格底部
+        tbody.appendChild(newTr);
+
+        count++;
+      }
+    };
+  </script>
+ 
+</head>
+
+<body>
+  <!-- 第一块 -->
+  <section class="firstbox">
+    <div class="column">
+           {% csrf_token %}
+     <ul>
+      <li><a href="http://127.0.0.1:8000/login">退出系统</a></li>
+      <li>  
+        <a href="http://127.0.0.1:8000/screen">智慧大屏</a>
+      </li>
+      <li>
+        <a href="#">后台管理</a>
+      </li>
+      <li><a href="#">联系主管</a></li>
+    </ul>
+    </div>
+
+    <div class="column">
+      <h1>数字海底大数据平台</h1>
+      <svg ID="sketchpad" viewBox="0,0,512,600">
+        <polyline fill="transparent" stroke="#37e6f3" stroke-width="2"
+          points="9,10    88.16,10    111.4,34   133,34   140.24,42   376.64,42   384,34   405.6,34   428.84,10    508,10">
+          <animate attributeName="stroke-dasharray" attributeType="XML" from="0, 266, 0, 266" to="0, 0, 532, 0" dur="2s"
+            begin="0s" calcMode="spline" keyTimes="0;1" keySplines="0.4,1,0.49,0.98" repeatCount="indefinite"></animate>
+        </polyline>
+        <polyline fill="transparent" stroke="#37e6f3" stroke-width="2" points="103.6,48 408.4,48">
+          <animate attributeName="stroke-dasharray" attributeType="XML"
+            from="0, 152.39999999999999, 0, 152.39999999999999" to="0, 0, 304.79999999999998, 0" dur="2s" begin="0s"
+            calcMode="spline" keyTimes="0;1" keySplines=".4,1,.49,.98" repeatCount="indefinite"></animate>
+        </polyline>
+      </svg>
+    </div>
+
+    <div class="column">
+      <div class="showTime"></div>
+      <script>
+        var t = null;
+        t = setTimeout(time, 1); //開始运行
+        function time() {
+          clearTimeout(t); //清除定时器
+          dt = new Date();
+          var y = dt.getFullYear();
+          var mt = dt.getMonth() + 1;
+          var day = dt.getDate();
+          var h = dt.getHours().toString().padStart(2, 0); //获取时
+          var m = dt.getMinutes().toString().padStart(2, 0); //获取分
+          var s = dt.getSeconds().toString().padStart(2, 0); //获取秒
+          document.querySelector(".showTime").innerHTML =
+            // "当前时间：" +
+            y +
+            "-" +
+            mt +
+            "-" +
+            day +
+            "  " +
+            h +
+            ":" +
+            m +
+            ":" +
+            s
+          t = setTimeout(time, 1000); //设定定时器，循环运行
+        }
+      </script>
+    </div>
+
+  </section>
+  <!-- 第二块 -->
+  <section class="secondbox">
+    <div class="no">
+      <div class="no-hd">
+        <ul>
+          {% comment %} <li>{{count1}}</li>
+          <li>{{count2.0}}</li>
+          <li>{{count2.1}}</li>
+          <li>{{count2.2}}</li>
+          <li>{{count2.3}}</li>
+          <li>{{count2.4}}</li>
+          <li>{{count2.5}}</li>
+          <li>{{count2.6}}</li> {% endcomment %}
+          {% comment %} {% for item in count2 %}
+          <li>{{item}}</li>
+          {% endfor %} {% endcomment %}
+          {% for v in count3.values %}
+          <li>{{v}}</li>
+          {% endfor %}
+        </ul>
+      </div>
+      <div class="no-bd">
+        <ul>
+          {% for k in count3.keys %}
+          <li>{{k}}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+
+  </section>
+  <!-- 第三块 -->
+  <section class="thirdbox">
+    <section class="bigborder">
+
+      <div class="panel">
+        <div class="box1 pie1">
+          <h2><b>各测区数量</b></h2>
+          <div class="chart"></div>
+        </div>
+        <div class="box2 bar1">
+          <h2><b>元素排名top10</b></h2>
+          <div class="chart"></div>
+        </div>
+      </div>
+
+
+      <div class="panel">
+        <div class="box3">
+          <h2><b>测点入库</b></h2>
+          <table class="top">
+            <thead>
+              <tr>
+                <th>测点</th>
+                <th>入库时间</th>
+                <th>测点类型</th>
+                <th>所在测区</th>
+              </tr>
+            </thead>
+          </table>
+
+          <div class="scroll-box">
+            <table class="tab-scroll">
+              <tbody>
+                {% if count3 != "" %}
+                {% for l in table %}
+                  <tr>
+                    <td>{{l.测点}}</td>
+                    <td>{{l.入库时间}}</td>
+                    <td>{{l.测点类型}}</td>
+                    <td>{{l.所在测区}}</td>
+                  </tr>
+                {% endfor %}
+                {% endif %}
+                
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel2">
+          <div class="box45 pie2">
+            <h2><b>本月累计航次</b></h2>
+            <div class="chart"></div>
+          </div>
+
+          <div class="box45 bar">
+            <h2><b>各航线测区数量排名</b></h2>
+            <div class="chart"></div>
+          </div>
+        </div>
+
+        <div class="panel2">
+          <div class="box6 line1">
+            <h2><b>航测距离日增趋势</b></h2>
+            <div class="chart"></div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <section class="bigborder2">
+      <div class="box8 pie3">
+        <h2><b>各取样方式中不同测区测点占比</b></h2>
+        <div class="chart"></div>
+      </div>
+    </section>
+
+  </section>
+
+  <script src="{% static 'js/flexible.js' %}"></script>
+  <script src="{% static 'js/jquery.js' %}"></script>
+  <script src="{% static 'js/echarts.min.js' %}"></script>
+  <script src="{% static 'js/index2.js' %}"></script>
+
+</body>
+
+</html>
